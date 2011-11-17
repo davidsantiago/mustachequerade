@@ -1,8 +1,7 @@
-(defproject mustachequerade "0.0.1-SNAPSHOT"
+(defproject mustachequerade "0.0.2-SNAPSHOT"
   :description "TODO: add summary of your project"
-  :dependencies [[clojure "1.2.0"]
-                 [stencil "0.1.0"]
-                 [com.github.fhd.clostache/clostache "0.4.1"]
+  :dependencies [[clojure "1.3.0"]
+                 [stencil "0.2.0"]
+                 [de.ubercode.clostache/clostache "0.6.0"]
                  [mustache "0.1.0-SNAPSHOT"]]
-  :dev-dependencies [[swank-clj "0.1.6-SNAPSHOT"]]
-  :tasks [cake.tasks.swank-clj])
+  :dev-dependencies [[ritz "0.2.0"]])

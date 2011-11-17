@@ -1,7 +1,7 @@
 (ns mustachequerade.core
   (:require [stencil.core :as stencil]
             [clostache.parser :as clostache]
-            [mustache :as mustache]))
+            #_[mustache :as mustache]))
 
 (defn run-main-bench []
   (println "Stencil main.mustache, 10000x: ")
@@ -23,18 +23,18 @@
                            :width 4968})
        ))
     )
-  (println "Mustache.clj main.mustache, 10000x:")
-  (let [cached-template
-        (mustache/compile (slurp "resources/templates/main.mustache"))]
-    (time
-     (dotimes [_ 10000]
-       (with-out-str (cached-template
-                      {:projects [{:name "resque"
-                                   :url "http://github.com/defunkt/resque"
-                                   :description "A Redis-backed Ruby library for queueing and working."}]
-                                        :width 4968}))
-       ))
-    )
+  (comment (println "Mustache.clj main.mustache, 10000x:")
+           (let [cached-template
+                 (mustache/compile (slurp "resources/templates/main.mustache"))]
+             (time
+              (dotimes [_ 10000]
+                (with-out-str (cached-template
+                               {:projects [{:name "resque"
+                                            :url "http://github.com/defunkt/resque"
+                                            :description "A Redis-backed Ruby library for queueing and working."}]
+                                :width 4968}))
+                ))
+             ))
   )
 
 ;; Don't use this, Clostache throws an exceptions for some reason.
