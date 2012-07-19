@@ -19,6 +19,11 @@
     (stencil/render cached-template
                     main-data)))
 
+(defcase main-bench :stencil-x10000
+  []
+  (let [cached-template (stenload/load "templates/main")]
+    (dotimes [_ 10000] (stencil/render cached-template main-data))))
+
 (defcase* main-bench :clostache
   (fn []
     (let [main-src (slurp "resources/templates/main.mustache")]
@@ -29,6 +34,13 @@
     (shenmustache/deftemplate cached-template
       (slurp "resources/templates/main.mustache"))
     [(fn [] (shenmustache/to-html cached-template main-data))]))
+
+(defcase* main-bench :shenmustache-x10000
+  (fn []
+    (shenmustache/deftemplate cached-template
+      (slurp "resources/templates/main.mustache"))
+    [(fn [] (dotimes [_ 10000]
+              (shenmustache/to-html cached-template main-data)))]))
 
 ;;
 ;; Demo benchmark
