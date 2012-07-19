@@ -69,3 +69,30 @@
     (shenmustache/deftemplate demo-template
       (slurp "resources/templates/demo.mustache"))
     [(fn [] (shenmustache/to-html demo-template demo-data))]))
+
+;;
+;; Shen Feng's benchmark
+;;
+
+(defgoal sf-bench "Benchmark the template Shen Feng wrote at
+https://github.com/shenfeng/mustache.clj/blob/master/test/me/shenfeng/perf_bench.clj")
+
+(def sf-data {:title "mustache clojure implementation"
+           :list (concat [{:id "https://github.com/davidsantiago/stencil"
+                           :name "stencil"}
+                          {:id "https://github.com/shenfeng/mustache.clj"
+                           :name "shenfeng"}]
+                         (map (fn [id]
+                                {:id id
+                                 :name (str "test-test" id)}) (range 1 10)))})
+
+(defcase sf-bench :stencil
+  []
+  (let [cached-template (stenload/load "templates/sf")]
+    (stencil/render cached-template sf-data)))
+
+(defcase* sf-bench :shenmustache
+  (fn []
+    (shenmustache/deftemplate sf-template
+      (slurp "resources/templates/sf.mustache"))
+    [(fn [] (shenmustache/to-html sf-template sf-data))]))
